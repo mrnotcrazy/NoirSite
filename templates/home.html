@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/stylesheets/style.css">
+    <title>Number Lookup</title>
+  </head>
+  <body>
+    <h1>Enter the numbers</h1>
+    <form method="POST">
+      <select id="num1" name="num1" required>
+        <!-- Options will be filled by JavaScript -->
+      </select>
+      <select id="num2" name="num2" required>
+        <!-- Options will be filled by JavaScript -->
+      </select>
+      <select id="num3" name="num3" required>
+        <!-- Options will be filled by JavaScript -->
+      </select>
+      <button type="submit">Submit</button>
+    </form>
+    <script>
+        function fillOptions(selectId, count, startAtZero = false) {
+  var selectElement = document.getElementById(selectId);
+  var start = startAtZero ? 0 : 1;
+  for (var i = start; i <= count; i++) {
+    var option = document.createElement('option');
+    option.text = i;
+    selectElement.add(option);
+  }
+}
+
+
+        // Fill options
+        fillOptions('num1', 50);  // Location: 1 to 50
+        fillOptions('num2', 4, true);   // Honor: 0 to 4
+        fillOptions('num3', 6);   // Dice roll: 1 to 6
+    </script>
+    {% if data %}
+      <h2>Description:</h2>
+      <p>{{data.description}}</p>
+
+      <h2>Pass:</h2>
+      <div class="tombolSpoiler">
+    <div class="tombol" tabindex="0"></div>
+    <div class="isi">
+      <p>{{data.pass}}</p>
+    </div>
+    </div>
+
+      <h2>Fail:</h2>
+    <div class="tombolSpoiler">
+    <div class="tombol" tabindex="0"></div>
+    <div class="isi">
+      <p>{{data.fail}}</p>
+    </div>
+    </div>
+
+    {% if data.skip %}
+  <h2>Skip:</h2>
+  <div class="tombolSpoiler">
+    <div class="tombol" tabindex="0"></div>
+    <div class="isi">
+      <p>{{data.skip}}</p>
+    </div>
+  </div>
+{% endif %}
+
+    {% endif %}
+  </body>
+</html>

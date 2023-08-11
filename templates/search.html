@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/stylesheets/style.css">
+    <title>Admin Search</title>
+  </head>
+  <body>
+    <h1>Search Location Data</h1>
+    <form method="GET" action="/search">
+      <input type="text" name="query" required>
+      <button type="submit">Search</button>
+    </form>
+    {% if results %}
+      <ul>
+        {% for result in results %}
+          <li>
+            <a href="/edit?id={{ result.id }}">{{ result.id }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </body>
+</html>

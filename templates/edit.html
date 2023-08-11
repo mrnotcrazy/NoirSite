@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/stylesheets/style.css">
+    <title>Admin Edit</title>
+    <style>
+        textarea {
+            resize: vertical; /* Only allow vertical resizing */
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 1em;
+        }
+        .form-group label {
+            margin-bottom: 0.5em;
+        }
+    </style>
+  </head>
+  <body>
+    <h1>Edit Location Data</h1>
+    <form method="POST">
+      <select id="num1" name="num1" required>
+      <!-- Options will be filled by JavaScript -->
+      </select>
+      <select id="num2" name="num2" required>
+      <!-- Options will be filled by JavaScript -->
+      </select>
+      <select id="num3" name="num3" required>
+      <!-- Options will be filled by JavaScript -->
+      </select>
+      <button type="submit">Fetch Data</button>
+    </form>
+    <script>
+      function fillOptions(selectId, count, startAtZero = false) {
+  var selectElement = document.getElementById(selectId);
+  var start = startAtZero ? 0 : 1;
+  for (var i = start; i <= count; i++) {
+    var option = document.createElement('option');
+    option.text = i;
+    selectElement.add(option);
+  }
+}
+
+
+        // Fill options
+        fillOptions('num1', 50);  // Location: 1 to 50
+        fillOptions('num2', 4, true);   // Honor: 0 to 4
+        fillOptions('num3', 6);   // Dice roll: 1 to 6
+    </script>
+    {% if data %}
+      <form method="POST" action="/update">
+        <input type="hidden" name="id" value="{{ data.id }}">
+        <div class="form-group">
+          <label>Description:</label>
+          <textarea name="description" rows="4" cols="50" required>{{ data.description }}</textarea>
+        </div>
+        <div class="form-group">
+          <label>Pass:</label>
+          <textarea name="pass" rows="4" cols="50">{{ data.pass }}</textarea>
+        </div>
+        <div class="form-group">
+          <label>Fail:</label>
+          <textarea name="fail" rows="4" cols="50">{{ data.fail }}</textarea>
+        </div>
+        <div class="form-group">
+          <label>Skip:</label>
+          <textarea name="skip" rows="4" cols="50">{{ data.skip }}</textarea>
+        </div>
+        <button type="submit">Update Data</button>
+      </form>
+    {% endif %}
+  </body>
+</html>
